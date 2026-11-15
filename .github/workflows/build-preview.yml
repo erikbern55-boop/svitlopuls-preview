@@ -1,0 +1,32 @@
+name: Build isolated V3 preview (sample data only)
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'src/**'
+      - 'scripts/build-preview.mjs'
+      - '.github/workflows/build-preview.yml'
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Generate V3 HTML with sample data
+        run: node scripts/build-preview.mjs
+      - name: Verify preview navigation and explicit sample-data warning
+        run: |
+          node --input-type=module -e "import fs from 'node:fs';const h=fs.readFileSync('index.html','utf8');for(const s of ['guide/garden/','guide/moon/','guide/astro/','ТЕСТОВИЙ ПЕРЕГЛЯД','НЕ ДАНІ ДТЕК'])if(!h.includes(s))throw Error('Missing '+s);console.log('Preview checks passed')"
+      - name: Commit generated preview HTML
+        run: |
+          if ! git diff --quiet -- index.html; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add index.html
+            git commit -m "preview: regenerate V3 card from renderer [skip ci]"
+            git push
+          fi
