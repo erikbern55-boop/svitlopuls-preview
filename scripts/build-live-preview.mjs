@@ -71,11 +71,13 @@ document.getElementById('preview-detail').addEventListener('click',()=>{mode='de
 window.addEventListener('resize',layout);
 window.addEventListener('orientationchange',()=>requestAnimationFrame(layout));
 window.addEventListener('load',layout);
+// Poll for a newer published snapshot every five minutes; weather cache is refreshed every 30 min by the build.
+setInterval(async()=>{try{const res=await fetch('./index.html?check='+Date.now(),{cache:'no-store'});if(!res.ok)return;const fresh=await res.text();const m=fresh.match(/<meta name="preview-build" content="([^"]+)"/);if(m&&m[1]!==document.querySelector('meta[name="preview-build"]')?.content){location.reload();}}catch(e){}},300000);
 if('ResizeObserver' in window)new ResizeObserver(layout).observe(card);
 layout();
 })();
 </script>`;
-html=html.replace('</head>',css+'</head>');
+html=html.replace('</head>',css+'<meta name="preview-build" content="'+now.toISOString()+'"></head>');
 html=html.replace(/<body([^>]*)>/i,(_m,attrs)=>'<body'+attrs+'>'+warning+tools+'<div id="preview-stage"><div id="preview-card">');
 html=html.replace('</article>','</article></div></div>');
 html=html.replace('</body>',js+'</body>');
