@@ -7,8 +7,9 @@ const schedule=[{begin:'00:00',end:'08:00',power:true},{begin:'08:00',end:'12:00
 let html=buildCardV3Html({schedule,date,weather:null,source:'ТЕСТОВИЙ ПРИКЛАД — НЕ ДАНІ ДТЕК',update:'ТЕСТОВИЙ ПРИКЛАД',now:new Date()});
 
 // Disable automatic page reload for synthetic content: reloading does NOT fetch new data.
-html=html.replace('setInterval(function(){if(document.visibilityState!=="visible"||location.protocol==="about:")return;', '/* Preview: static synthetic data, no automatic refresh */ void function(){if(document.visibilityState!=="visible"||location.protocol==="about:")return;');
-html=html.replace('},300000);try{const p=JSON.parse', '}();try{const p=JSON.parse');
+// Remove the original 5-minute reload timer entirely. A previous replacement
+// accidentally invoked location.reload() immediately and prevented fit initialization.
+html=html.replace(/setInterval\(function\(\)\{if\(document\.visibilityState!=="visible"[\s\S]*?\},300000\);/, '');
 
 const css=`<style id="preview-responsive">
 html,body{width:100%!important;min-width:0!important;max-width:100%!important;overflow-x:hidden!important}
