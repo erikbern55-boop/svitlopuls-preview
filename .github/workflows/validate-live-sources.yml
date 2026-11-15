@@ -1,0 +1,27 @@
+name: Validate live sources (read-only, no publication)
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    env:
+      REGION: kr
+      GROUP: '1.1'
+      TARGET: preview-validation
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install official-source browser
+        run: |
+          npm install --no-save playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Validate DTEK Kyiv oblast 1.1 and Open-Meteo Khimik
+        run: node scripts/check-live-sources.mjs
+      - name: Ensure preview remains sample-only
+        run: |
+          node --input-type=module -e "import fs from 'node:fs';const h=fs.readFileSync('index.html','utf8');if(!h.includes('ГРАФІК УМОВНИЙ'))throw Error('Preview sample warning missing');console.log('Published preview remains synthetic')"
