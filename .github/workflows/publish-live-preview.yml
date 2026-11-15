@@ -32,11 +32,14 @@ jobs:
       - name: Validate links, responsive wrapper and explicit status
         run: |
           node --input-type=module -e "import fs from 'node:fs';const h=fs.readFileSync('index.html','utf8');for(const s of ['preview-fit','preview-detail','guide/garden/','guide/moon/','guide/astro/','preview-warning'])if(!h.includes(s))throw Error('Missing '+s);if(!h.includes('ДАНІ ДТЕК НЕДОСТУПНІ')&&!h.includes('група 1.1'))throw Error('Missing DTEK status');console.log('V3 preview integrity OK')"
+      - name: Check snapshot consistency
+        run: |
+          node --input-type=module -e "import fs from 'node:fs';const a=JSON.parse(fs.readFileSync('artifacts/sync-audit.json','utf8'));const h=fs.readFileSync('index.html','utf8');if(!h.includes(a.generatedAt))throw Error('Timestamp mismatch');if(a.scheduleAvailable){if(a.group!=='GPV1.1'||a.periods[0]?.begin!=='00:00'||a.periods.at(-1)?.end!=='24:00')throw Error('Schedule coverage/group mismatch');for(let i=1;i<a.periods.length;i++)if(a.periods[i-1].end!==a.periods[i].begin)throw Error('Gap in DTEK schedule');}else if(!h.includes('ДАНІ ДТЕК НЕДОСТУПНІ'))throw Error('Unavailable DTEK must be labeled');console.log('Audit:',JSON.stringify({generatedAt:a.generatedAt,periods:a.periods.length,weatherFetchedAt:a.weatherFetchedAt}));"
       - name: Commit snapshot and weather cache only in preview
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add index.html
+          git add index.html artifacts/sync-audit.json
           if test -f artifacts/preview-weather-cache.json; then git add -f artifacts/preview-weather-cache.json; fi
           if ! git diff --cached --quiet; then
             git commit -m "preview: refresh DTEK 1.1 and weather snapshot [skip ci]"
