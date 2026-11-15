@@ -21,7 +21,7 @@ for(const day of days){
   else if(state==='second')periods.push({begin:h+':00',end:half,power:true},{begin:half,end:next+':00',power:false});
   else periods.push({begin:h+':00',end:half,power:false},{begin:half,end:next+':00',power:true});
  }
- const event=nextPowerEvent(periods,new Date(),day.date);
+ const event=nextPowerEvent(periods,day.date,new Date());
  results.push({date:day.date,source,group,periods:periods.length,nextEvent:event??null});
 }
 const weather=await loadWeather();
