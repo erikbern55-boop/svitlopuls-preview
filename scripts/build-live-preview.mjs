@@ -29,10 +29,10 @@ try {
  source=result.source;
  status='АКТУАЛЬНИЙ ГРАФІК · '+source+' · група 1.1 · '+now.toISOString();
 }catch(error){console.error('DTEK unavailable:',error.message);source='ДТЕК: недоступно';}
-let weather=null;
+let weather=null,weatherFetchedAt=null;
 try{
  const snapshot=await loadWeather({now,file:'artifacts/preview-weather-cache.json'});
- if(snapshot&&!snapshot.stale)weather=weatherForDate(snapshot,date,now);
+ if(snapshot&&!snapshot.stale){weather=weatherForDate(snapshot,date,now);weatherFetchedAt=snapshot.fetchedAt;}
 }catch(error){console.warn('Weather unavailable:',error.message);}
 let html=buildCardV3Html({schedule,date,weather,source,update:status,now});
 // Disable automatic page reload for synthetic content: reloading does NOT fetch new data.
@@ -82,4 +82,6 @@ html=html.replace(/<body([^>]*)>/i,(_m,attrs)=>'<body'+attrs+'>'+warning+tools+'
 html=html.replace('</article>','</article></div></div>');
 html=html.replace('</body>',js+'</body>');
 fs.writeFileSync('index.html',html);
+fs.mkdirSync('artifacts',{recursive:true});
+fs.writeFileSync('artifacts/sync-audit.json',JSON.stringify({generatedAt:now.toISOString(),date,group,source,scheduleAvailable:schedule.length>0,periods:schedule,weatherAvailable:!!weather,weatherFetchedAt,refresh:{dtekMinutes:5,weatherMinutes:30},mode:'isolated-preview'},null,2)+'\n');
 console.log(JSON.stringify({date,source,periods:schedule.length,weather:!!weather,generatedAt:now.toISOString(),mode:'live-source-preview'}));
