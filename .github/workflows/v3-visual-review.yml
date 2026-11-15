@@ -1,0 +1,27 @@
+name: V3 neon visual review (no production changes)
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  visual-review:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install browser
+        run: |
+          npm install --no-save playwright@1.56.1
+          npx playwright install --with-deps chromium
+      - name: Capture actual card and geometry
+        run: node scripts/visual-review.mjs
+      - name: Upload visual review evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: v3-visual-review
+          path: artifacts/visual-review/
+          if-no-files-found: error
