@@ -1,0 +1,31 @@
+{
+  "generatedAt": "2026-11-15T20:33:03.384Z",
+  "date": "2026-11-15",
+  "group": "GPV1.1",
+  "source": "ДТЕК",
+  "scheduleAvailable": true,
+  "periods": [
+    {
+      "begin": "00:00",
+      "end": "11:30",
+      "power": true
+    },
+    {
+      "begin": "11:30",
+      "end": "15:30",
+      "power": false
+    },
+    {
+      "begin": "15:30",
+      "end": "24:00",
+      "power": true
+    }
+  ],
+  "weatherAvailable": true,
+  "weatherFetchedAt": "2026-11-15T20:26:26.731Z",
+  "refresh": {
+    "dtekMinutes": 5,
+    "weatherMinutes": 30
+  },
+  "mode": "isolated-preview"
+}
