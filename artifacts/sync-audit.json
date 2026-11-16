@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-16T16:52:15.058Z",
+  "generatedAt": "2026-11-16T17:52:37.764Z",
   "date": "2026-11-16",
   "group": "GPV1.1",
-  "source": "резервна копія даних ДТЕК",
+  "source": "ДТЕК",
   "scheduleAvailable": true,
   "periods": [
     {
@@ -26,8 +26,8 @@
       "power": false
     }
   ],
-  "weatherAvailable": false,
-  "weatherFetchedAt": null,
+  "weatherAvailable": true,
+  "weatherFetchedAt": "2026-11-16T17:52:37.764Z",
   "refresh": {
     "dtekMinutes": 5,
     "weatherMinutes": 30
