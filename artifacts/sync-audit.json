@@ -1,43 +1,33 @@
 {
-  "generatedAt": "2026-11-18T21:37:12.491Z",
-  "date": "2026-11-18",
+  "generatedAt": "2026-11-18T22:44:10.560Z",
+  "date": "2026-11-19",
   "group": "GPV1.1",
-  "source": "ДТЕК",
+  "source": "резервна копія даних ДТЕК",
   "scheduleAvailable": true,
   "periods": [
     {
       "begin": "00:00",
-      "end": "02:30",
+      "end": "06:00",
       "power": true
     },
     {
-      "begin": "02:30",
-      "end": "07:00",
+      "begin": "06:00",
+      "end": "09:30",
       "power": false
     },
     {
-      "begin": "07:00",
-      "end": "13:00",
+      "begin": "09:30",
+      "end": "20:30",
       "power": true
     },
     {
-      "begin": "13:00",
-      "end": "17:30",
-      "power": false
-    },
-    {
-      "begin": "17:30",
-      "end": "23:30",
-      "power": true
-    },
-    {
-      "begin": "23:30",
+      "begin": "20:30",
       "end": "24:00",
       "power": false
     }
   ],
-  "weatherAvailable": true,
-  "weatherFetchedAt": "2026-11-18T21:37:12.491Z",
+  "weatherAvailable": false,
+  "weatherFetchedAt": null,
   "refresh": {
     "dtekMinutes": 5,
     "weatherMinutes": 30
