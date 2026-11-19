@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-19T09:28:44.348Z",
+  "generatedAt": "2026-11-19T10:39:44.164Z",
   "date": "2026-11-19",
   "group": "GPV1.1",
   "source": "ДТЕК",
@@ -27,7 +27,7 @@
     }
   ],
   "weatherAvailable": true,
-  "weatherFetchedAt": "2026-11-19T09:28:44.348Z",
+  "weatherFetchedAt": "2026-11-19T10:39:44.164Z",
   "refresh": {
     "dtekMinutes": 5,
     "weatherMinutes": 30
