@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-20T07:58:13.912Z",
+  "generatedAt": "2026-11-20T09:00:08.794Z",
   "date": "2026-11-20",
   "group": "GPV1.1",
   "source": "ДТЕК",
@@ -7,16 +7,26 @@
   "periods": [
     {
       "begin": "00:00",
-      "end": "18:00",
+      "end": "10:00",
       "power": true
     },
     {
-      "begin": "18:00",
-      "end": "22:00",
+      "begin": "10:00",
+      "end": "12:30",
       "power": false
     },
     {
-      "begin": "22:00",
+      "begin": "12:30",
+      "end": "19:00",
+      "power": true
+    },
+    {
+      "begin": "19:00",
+      "end": "22:30",
+      "power": false
+    },
+    {
+      "begin": "22:30",
       "end": "24:00",
       "power": true
     }
