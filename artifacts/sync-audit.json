@@ -1,28 +1,18 @@
 {
-  "generatedAt": "2026-11-19T21:44:12.236Z",
-  "date": "2026-11-19",
+  "generatedAt": "2026-11-20T03:28:39.945Z",
+  "date": "2026-11-20",
   "group": "GPV1.1",
   "source": "ДТЕК",
   "scheduleAvailable": true,
   "periods": [
     {
       "begin": "00:00",
-      "end": "06:00",
-      "power": true
-    },
-    {
-      "begin": "06:00",
-      "end": "09:30",
-      "power": false
-    },
-    {
-      "begin": "09:30",
       "end": "24:00",
       "power": true
     }
   ],
   "weatherAvailable": true,
-  "weatherFetchedAt": "2026-11-19T21:44:12.236Z",
+  "weatherFetchedAt": "2026-11-20T03:28:39.945Z",
   "refresh": {
     "dtekMinutes": 5,
     "weatherMinutes": 30
